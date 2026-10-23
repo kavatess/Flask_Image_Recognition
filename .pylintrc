@@ -521,8 +521,9 @@ ignore-imports=yes
 # Signatures are removed from the similarity computation
 ignore-signatures=yes
 
-# Minimum lines number of a similarity.
-min-similarity-lines=4
+# Minimum lines number of a similarity. Raised from 4 because the acceptance and
+# integration tests intentionally repeat the same short upload request setup.
+min-similarity-lines=10
 
 
 [SPELLING]

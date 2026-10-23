@@ -1,7 +1,5 @@
-# test_integration_happy.py
-
+"""Integration tests for the happy path of the prediction route."""
 from io import BytesIO
-import pytest
 
 def test_successful_prediction(client):
     """Test the successful image upload and prediction."""

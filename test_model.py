@@ -1,4 +1,4 @@
-import os
+"""Unit tests for image preprocessing and prediction in model.py."""
 import pytest
 import numpy as np
 from keras.models import load_model
@@ -19,13 +19,16 @@ def test_preprocess_img():
     processed_img = preprocess_img(img_path)
 
     # Check that the output shape is as expected
-    assert processed_img.shape == (1, 224, 224, 3), "Processed image shape should be (1, 224, 224, 3)"
+    assert processed_img.shape == (1, 224, 224, 3), \
+        "Processed image shape should be (1, 224, 224, 3)"
 
     # Check that values are normalized (between 0 and 1)
-    assert np.min(processed_img) >= 0 and np.max(processed_img) <= 1, "Image pixel values should be normalized between 0 and 1"
+    assert np.min(processed_img) >= 0 and np.max(processed_img) <= 1, \
+        "Image pixel values should be normalized between 0 and 1"
 
 
-def test_predict_result(model):
+@pytest.mark.usefixtures("model")
+def test_predict_result():
     """Test the predict_result function."""
     img_path = "test_images/4/Sign 4 (92).jpeg"  # Ensure the path is correct
     processed_img = preprocess_img(img_path)
@@ -47,7 +50,8 @@ def test_invalid_image_path():
     with pytest.raises(FileNotFoundError):
         preprocess_img("invalid/path/to/image.jpeg")
 
-def test_image_shape_on_prediction(model):
+@pytest.mark.usefixtures("model")
+def test_image_shape_on_prediction():
     """Test the prediction output shape."""
     img_path = "test_images/5/Sign 5 (86).jpeg"  # Ensure the path is correct
     processed_img = preprocess_img(img_path)
@@ -56,7 +60,8 @@ def test_image_shape_on_prediction(model):
     prediction = predict_result(processed_img)
     assert isinstance(prediction, (int, np.integer)), "The prediction should be an integer"
 
-def test_model_predictions_consistency(model):
+@pytest.mark.usefixtures("model")
+def test_model_predictions_consistency():
     """Test that predictions for the same input are consistent."""
     img_path = "test_images/7/Sign 7 (54).jpeg"
     processed_img = preprocess_img(img_path)
@@ -65,4 +70,5 @@ def test_model_predictions_consistency(model):
     predictions = [predict_result(processed_img) for _ in range(5)]
 
     # Check that all predictions are the same
-    assert all(p == predictions[0] for p in predictions), "Predictions for the same input should be consistent"
+    assert all(p == predictions[0] for p in predictions), \
+        "Predictions for the same input should be consistent"

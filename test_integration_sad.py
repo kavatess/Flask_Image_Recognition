@@ -1,8 +1,6 @@
-# test_integration_sad.py
-
+"""Integration tests for the sad path of the prediction route."""
 import pytest
 from app import app
-from io import BytesIO
 
 @pytest.fixture
 def client():
