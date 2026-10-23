@@ -57,3 +57,24 @@ Click [here](https://geekpython.in/run-flask-app-from-the-command-line-in-window
 - Choose an image from the test images folder.
 - You will see a preview of the uploaded image.
 - Click on **Submit** button and see the magic.
+
+# Requirements
+
+Python **3.9 or 3.10** is required (TensorFlow 2.10 does not support newer versions).
+Using a virtual environment is recommended.
+
+# Code Quality (Pylint and pre-commit)
+
+Run Pylint manually (settings are in `.pylintrc`):
+
+```commandline
+pylint $(git ls-files '*.py')
+```
+
+Enable the pre-commit hooks once after installing the dependencies. They then run
+automatically on every commit (whitespace, end-of-file, YAML, line endings and Pylint):
+
+```commandline
+pre-commit install
+pre-commit run --all-files
+```
